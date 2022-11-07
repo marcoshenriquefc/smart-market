@@ -1,8 +1,8 @@
 <template>
 	<div v-for="(listaItem, index) in listaItens" :key="index">
-		<input type="checkbox" name="" :id="listaItem.id" class="itemCheck" :value="listaItem.name"
+		<input type="checkbox" name="" :class="listaItem.name" :id="listaItem.id" class="itemCheck" :value="listaItem.name"
 			v-model="checkeditens">
-		<label class="item" :for="listaItem.id">
+		<label class="item" :for="listaItem.id" @click="clickedItem(listaItem)">
 			<h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
 
 			<div class="pricesArea">
@@ -24,7 +24,7 @@
 		</label>
 	</div>
 
-	<p>{{ checkeditens }}</p>
+	<p><strong>TOTAL:</strong> {{ totalItensPrice }}</p>
 
 </template>
 
@@ -32,8 +32,10 @@
 import useStore from '@/store';
 import { computed } from '@vue/reactivity';
 import { defineComponent } from 'vue';
+import { CHECKED_ITEM, DELETE_CHECKED } from '../store/typeMutation'
 
 import ButtonQuantity from '@/components/ButtonQuantity.vue'
+import IListItem from '@/interfaces/IListItem';
 
 export default defineComponent({
 	name: "ListaItens",
@@ -45,10 +47,30 @@ export default defineComponent({
 			checkeditens: []
 		}
 	},
+	methods:{
+		clickedItem(item: IListItem){
+			const indexList: number = this.store.state.listChecked.findIndex(it => {
+				return item.id == it.id
+			})
+			if(indexList < 0){
+				this.store.commit(CHECKED_ITEM, item);
+			}
+			else{
+				this.store.commit(DELETE_CHECKED, item)
+			}
+
+      this.store.commit('TESTE')
+			console.log(indexList)
+			console.log(this.store.state.listChecked)
+
+		}
+	},
 	setup() {
-		const store = useStore()
+		const store = useStore();
 		return {
-			listaItens: computed(() => store.state.listItem)
+			store,
+			totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})),
+			listaItens: computed(() => store.state.listItem),
 		}
 	}
 })
@@ -66,6 +88,14 @@ export default defineComponent({
 .itemCheck:checked~.item * {
 	text-decoration: line-through;
 	color: gray;
+}
+
+.checkedClick *{
+	text-decoration: line-through;
+	color: gray;
+}
+.checkedClick{
+	background-color: #D9D9D9;
 }
 
 .item {

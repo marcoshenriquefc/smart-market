@@ -1,7 +1,7 @@
 export default interface IListItem{
   id: string;
-  quantity: Number;
+  quantity: number;
   name: string;
-  price: Number;
-  total:Number;
+  price: number;
+  total:number;
 }

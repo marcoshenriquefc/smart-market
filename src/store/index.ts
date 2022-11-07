@@ -1,5 +1,5 @@
 //mutations name
-import { SAVE_ITEM } from './typeMutation';
+import { SAVE_ITEM, CHECKED_ITEM, DELETE_CHECKED} from './typeMutation';
 
 import { createStore, Store, useStore as vuexUseStore} from 'vuex'
 import { InjectionKey } from 'vue';
@@ -8,19 +8,40 @@ import { InjectionKey } from 'vue';
 import IListItem from '@/interfaces/IListItem';
 
 export interface State{
-  listItem: IListItem[]
+  listItem: IListItem[],
+  listChecked: IListItem[],
+  total: number
 }
 export const store = createStore<State>({
   state: {
-    listItem: []
+    listItem: [],
+    listChecked: [],
+    total: 0,
   },
   mutations: {
     [SAVE_ITEM](state, Item: IListItem){
-      Item.id = new Date().toISOString();
+      Item.id = Item.name + new Date().toISOString().substring(20,24);
 
       state.listItem.push(Item);
-      console.log(Item)
-      console.log(state.listItem)
+    },
+    [CHECKED_ITEM](state, item: IListItem){
+      state.listChecked.push(item)
+    },
+    [DELETE_CHECKED](state, item: IListItem){
+      state.listChecked = state.listChecked.filter((it) => {
+        // return it.id != item
+        return it.id != item.id
+      });
+    },
+    'TESTE'(state){
+      let totallItem = 0;
+
+      for (let idx = 0; idx < state.listChecked.length; idx++) {
+        totallItem += state.listChecked[idx].total
+      }
+
+      state.total = totallItem
+      console.log('valor total: ' + state.total )
     }
   },
   actions: {

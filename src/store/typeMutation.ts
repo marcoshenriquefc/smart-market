@@ -1,1 +1,4 @@
 export const SAVE_ITEM = "SALVE_ITEM";
+
+export const CHECKED_ITEM = "CHECKED_ITEM"
+export const DELETE_CHECKED = "DELETE_CHECKED"
