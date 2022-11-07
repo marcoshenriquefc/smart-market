@@ -15,12 +15,12 @@
 			</div>
 
 			<div class="quantityArea">
-				<ButtonQuantity class="quantityChange"> - </ButtonQuantity>
-				{{ listaItem.quantity }}
-				<ButtonQuantity class="quantityChange"> + </ButtonQuantity>
+				<!-- <ButtonQuantity class="quantityChange"> - </ButtonQuantity> -->
+				<p><strong>Qtd:</strong> {{ listaItem.quantity }}</p>
+				<!-- <ButtonQuantity class="quantityChange"> + </ButtonQuantity> -->
 			</div>
 
-			<ButtonQuantity class="deleteItem"> x </ButtonQuantity>
+			<!-- <ButtonQuantity class="deleteItem"> x </ButtonQuantity> -->
 		</label>
 	</div>
 
@@ -40,7 +40,7 @@ import IListItem from '@/interfaces/IListItem';
 export default defineComponent({
 	name: "ListaItens",
 	components: {
-		ButtonQuantity
+		// ButtonQuantity
 	},
 	data() {
 		return {
