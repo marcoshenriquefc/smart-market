@@ -20,7 +20,7 @@ export const store = createStore<State>({
   },
   mutations: {
     [SAVE_ITEM](state, Item: IListItem){
-      Item.id = Item.name + new Date().toISOString().substring(20,24);
+      Item.id = new Date().toISOString().substring(20,24);
 
       state.listItem.push(Item);
     },

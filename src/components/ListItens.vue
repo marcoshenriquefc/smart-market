@@ -1,7 +1,7 @@
 <template>
 	<div v-for="(listaItem, index) in listaItens" :key="index">
-		<input type="checkbox" name="" :class="listaItem.name" :id="listaItem.id" class="itemCheck" :value="listaItem.name"
-			v-model="checkeditens">
+		<input type="checkbox" :id="listaItem.id" class="itemCheck" :value="listaItem.name"
+			v-model="checkeditens[index]">
 		<label class="item" :for="listaItem.id" @click="clickedItem(listaItem)">
 			<h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
 
