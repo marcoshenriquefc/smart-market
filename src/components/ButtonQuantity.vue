@@ -20,8 +20,8 @@ export default defineComponent({
 
 <style scoped>
 .buttonQuantity{
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 
   font-weight: 700;
   font-size: 16px;

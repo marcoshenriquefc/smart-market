@@ -33,16 +33,6 @@ export const store = createStore<State>({
         return it.id != item.id
       });
     },
-    'TESTE'(state){
-      let totallItem = 0;
-
-      for (let idx = 0; idx < state.listChecked.length; idx++) {
-        totallItem += state.listChecked[idx].total
-      }
-
-      state.total = totallItem
-      console.log('valor total: ' + state.total )
-    }
   },
   actions: {
   },

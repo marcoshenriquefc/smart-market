@@ -1,7 +1,9 @@
 <template>
-	<div v-for="(listaItem, index) in listaItens" :key="index">
+	<div class="full-item" v-for="(listaItem, index) in listaItens" :key="index">
 		<input type="checkbox" :id="listaItem.id" class="itemCheck" :value="listaItem.name"
 			v-model="checkeditens[index]">
+
+		<ButtonQuantity class="deleteItem"> E </ButtonQuantity>
 		<label class="item" :for="listaItem.id" @click="clickedItem(listaItem)">
 			<h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
 
@@ -20,7 +22,6 @@
 				<!-- <ButtonQuantity class="quantityChange"> + </ButtonQuantity> -->
 			</div>
 
-			<!-- <ButtonQuantity class="deleteItem"> x </ButtonQuantity> -->
 		</label>
 	</div>
 
@@ -40,36 +41,36 @@ import IListItem from '@/interfaces/IListItem';
 export default defineComponent({
 	name: "ListaItens",
 	components: {
-		// ButtonQuantity
+		ButtonQuantity
 	},
 	data() {
 		return {
-			checkeditens: []
+			checkeditens: [],
+			itemClickedtoEdit: null as IListItem | null
 		}
 	},
-	methods:{
-		clickedItem(item: IListItem){
+	methods: {
+		clickedItem(item: IListItem) {
 			const indexList: number = this.store.state.listChecked.findIndex(it => {
 				return item.id == it.id
 			})
-			if(indexList < 0){
+			if (indexList < 0) {
 				this.store.commit(CHECKED_ITEM, item);
 			}
-			else{
+			else {
 				this.store.commit(DELETE_CHECKED, item)
 			}
+		},
 
-      this.store.commit('TESTE')
-			console.log(indexList)
-			console.log(this.store.state.listChecked)
-
+		selectedItem(item: IListItem){
+			this.itemClickedtoEdit = item;
 		}
 	},
 	setup() {
 		const store = useStore();
 		return {
 			store,
-			totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})),
+			totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),
 			listaItens: computed(() => store.state.listItem),
 		}
 	}
@@ -77,6 +78,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.full-item{
+	position: relative;
+	margin: 20px 12px;
+}
 .itemCheck {
 	display: none;
 }
@@ -90,11 +96,12 @@ export default defineComponent({
 	color: gray;
 }
 
-.checkedClick *{
+.checkedClick * {
 	text-decoration: line-through;
 	color: gray;
 }
-.checkedClick{
+
+.checkedClick {
 	background-color: #D9D9D9;
 }
 
@@ -109,7 +116,6 @@ export default defineComponent({
 
 	box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2);
 	padding: 20px;
-	margin: 20px 12px;
 
 	border-radius: 8px;
 	cursor: pointer;
@@ -145,9 +151,15 @@ export default defineComponent({
 }
 
 .deleteItem {
+	position: absolute;
 	grid-column: 5/-1;
-	background: #ff99996a;
-	color: #650f0f;
+	background: #2e47a2;
+	color: #e8e8e8;
+
+	right: -10px;
+	top: -10px;
+
+	box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.573);
 }
 </style>
 
