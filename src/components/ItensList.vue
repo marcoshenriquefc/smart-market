@@ -1,12 +1,12 @@
 <template>
     <div class="full-item">
-        <ButtonQuantity class="deleteItem"> E </ButtonQuantity>
+        <ButtonQuantity class="deleteItem" @ao-click-button="clickedEditButton"> E </ButtonQuantity>
 
-        <label class="item" :for="listaItem.id" @click="clickedItem(listaItem)"  :class="checkedList ? 'checked' : ''"> 
+        <label class="item" :for="listaItem.id" @click="clickedItem(listaItem)" :class="checkedList ? 'checked' : ''">
             <h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
 
             <div class="pricesArea">
-                <p class="uniPrice"> {{ listaItem.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+                <p class="uniPrice"> {{ listaItem.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) || 'R$ 0,00'
                 }}</p>
                 <p class="totalPrice"> {{ listaItem.total.toLocaleString('pt-br', {
                         style: 'currency', currency: 'BRL'
@@ -22,9 +22,13 @@
 </template>
 
 <script lang="ts">
+//UTILS IMPORT's
 import { defineComponent, PropType } from 'vue';
 
+//COMPONENTS IMPORT's
 import ButtonQuantity from '@/components/ButtonQuantity.vue'
+
+//INTERFACES IMPORT's
 import IListItem from '@/interfaces/IListItem';
 
 export default defineComponent({
@@ -51,10 +55,13 @@ export default defineComponent({
             required: true
         }
     },
-    emits: ['aoItemClicked'],
+    emits: ['aoItemClicked', 'aoEditItem'],
     methods: {
         clickedItem(item: IListItem) {
             this.$emit('aoItemClicked', this.listaItem)
+        },
+        clickedEditButton(item: IListItem){
+            this.$emit('aoEditItem', this.listaItem)
         }
     },
 }
@@ -80,11 +87,12 @@ export default defineComponent({
     color: gray;
 }
 
-.item.checked{
+.item.checked {
     box-shadow: inset 3px 5px 10px 0px rgb(0 0 0 / 26%);
     background-color: #b9b9b9;
 }
-.item.checked *{
+
+.item.checked * {
     text-decoration: line-through;
     color: gray;
 }

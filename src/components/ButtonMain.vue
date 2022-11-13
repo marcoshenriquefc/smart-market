@@ -38,4 +38,19 @@ export default defineComponent({
   background-color: #1F3324;
   color: #F8F8F8;
 }
+.buttonMain.lightGreen{
+  background-color: #08912a;
+  color: #F8F8F8;
+}
+.buttonMain.lightGreen:hover{
+  background-color: #4da964;
+}
+
+.buttonMain.red{
+  background-color: #6d0909;
+  color: #F8F8F8;
+}
+.buttonMain.red:hover{
+  background-color: #9a4444;
+}
 </style>

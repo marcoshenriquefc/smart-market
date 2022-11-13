@@ -1,5 +1,5 @@
 //mutations name
-import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC} from './typeMutation';
+import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM} from './typeMutation';
 
 import { createStore, Store, useStore as vuexUseStore} from 'vuex'
 import { InjectionKey } from 'vue';
@@ -30,6 +30,20 @@ export const store = createStore<State>({
       state.listItem[indexList].checked = !state.listItem[indexList].checked
       
       store.commit(TOTAL_CALC)
+    },
+    [EDIT_ITEM](state, item: IListItem){
+      
+      item.total = item.quantity * item.price;
+      
+      console.log('lista ante:', state.listItem )
+      const indexList = state.listItem.findIndex(it => {
+				return item.id == it.id
+			})
+
+      state.listItem[indexList] = item
+      store.commit(TOTAL_CALC)
+
+      console.log('lista alterada:', state.listItem )
     },
     [TOTAL_CALC](state){
       state.total = 0
