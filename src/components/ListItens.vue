@@ -33,7 +33,7 @@
 import useStore from '@/store';
 import { computed } from '@vue/reactivity';
 import { defineComponent } from 'vue';
-import { CHECKED_ITEM, DELETE_CHECKED } from '../store/typeMutation'
+import { CHECKED_ITEM } from '../store/typeMutation'
 
 import ButtonQuantity from '@/components/ButtonQuantity.vue'
 import IListItem from '@/interfaces/IListItem';
@@ -51,15 +51,7 @@ export default defineComponent({
 	},
 	methods: {
 		clickedItem(item: IListItem) {
-			const indexList: number = this.store.state.listChecked.findIndex(it => {
-				return item.id == it.id
-			})
-			if (indexList < 0) {
 				this.store.commit(CHECKED_ITEM, item);
-			}
-			else {
-				this.store.commit(DELETE_CHECKED, item)
-			}
 		},
 
 		selectedItem(item: IListItem){

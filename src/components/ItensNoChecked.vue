@@ -1,10 +1,8 @@
 <template>
-    <div class="full-item" >
-        <input type="checkbox" :id="listaItem.id" class="itemCheck" :value="listaItem.name" v-model="checkeditens[index]">
-
+    <div class="full-item">
         <ButtonQuantity class="deleteItem"> E </ButtonQuantity>
 
-        <label class="item" :for="listaItem.id" @click="clickedItem(listaItem)">
+        <label class="item" :for="listaItem.id" @click="clickedItem(listaItem)"  :class="checkedList ? 'checked' : ''"> 
             <h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
 
             <div class="pricesArea">
@@ -24,10 +22,7 @@
 </template>
 
 <script lang="ts">
-import useStore from '@/store';
-import { computed } from '@vue/reactivity';
 import { defineComponent, PropType } from 'vue';
-import { CHECKED_ITEM, DELETE_CHECKED } from '../store/typeMutation'
 
 import ButtonQuantity from '@/components/ButtonQuantity.vue'
 import IListItem from '@/interfaces/IListItem';
@@ -50,23 +45,17 @@ export default defineComponent({
         index: {
             type: Number,
             required: true
+        },
+        checkedList: {
+            type: Boolean,
+            required: true
         }
     },
     emits: ['aoItemClicked'],
     methods: {
         clickedItem(item: IListItem) {
-            this.$emit('aoItemClicked', this.listaItem )
+            this.$emit('aoItemClicked', this.listaItem)
         }
-        // clickedItem(item: IListItem) {
-        //     const indexList: number = this.store.state.listChecked.findIndex(it => {
-        //         return item.id == it.id
-        //     })
-        //     if (indexList < 0) {
-        //         this.store.commit(CHECKED_ITEM, item);
-        //     }
-        //     else {
-        //         this.store.commit(DELETE_CHECKED, item)
-        //     }
     },
 }
 )
@@ -87,6 +76,15 @@ export default defineComponent({
 }
 
 .itemCheck:checked~.item * {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.item.checked{
+    box-shadow: inset 3px 5px 10px 0px rgb(0 0 0 / 26%);
+    background-color: #b9b9b9;
+}
+.item.checked *{
     text-decoration: line-through;
     color: gray;
 }

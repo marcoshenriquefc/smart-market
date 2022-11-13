@@ -3,5 +3,6 @@ export default interface IListItem{
   quantity: number;
   name: string;
   price: number;
-  total:number;
+  total: number;
+  checked: boolean;
 }

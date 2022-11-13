@@ -1,14 +1,19 @@
 <template>
 
-    <section v-for="(listaItem, index) in listaItens" :key="index">
-        <ItensNoChecked
-            :listaItem=listaItem
-            :index=index
-            @ao-item-clicked="clickedItem"
-        />
-    </section>
+	<div v-for="(listaItem, index) in listaItens" :key="index">
+		<ItensNoChecked :checkedList=false :listaItem=listaItem :index=index @ao-item-clicked="clickedItem"
+			v-if="!listaItem.checked" />
+	</div>
 
-    <p> {{ totalItensPrice }}</p>
+
+	<h3>Checked</h3>
+
+	<div v-for="(listaItem, index) in listaItens" :key="index">
+		<ItensNoChecked :checkedList=true :listaItem=listaItem :index=index @ao-item-clicked="clickedItem"
+			v-if="listaItem.checked" />
+	</div>
+
+	<p> {{ totalItensPrice }}</p>
 </template>
 
 
@@ -25,27 +30,21 @@ import ItensNoChecked from '@/components/ItensNoChecked.vue'
 import IListItem from '@/interfaces/IListItem';
 
 //MUTATION/ACTION VARIABLE IMPORT's
-import { CHECKED_ITEM, DELETE_CHECKED } from '@/store/typeMutation';
+import { CHECKED_ITEM } from '@/store/typeMutation';
 
 export default defineComponent({
-    name: 'ItemListedView',
-    components:{
-        ItensNoChecked,
-    },
-    methods:{
-        clickedItem(item: IListItem) {
-			const indexList: number = this.store.state.listChecked.findIndex(it => {
-				return item.id == it.id
-			})
-			if (indexList < 0) {
-				this.store.commit(CHECKED_ITEM, item);
-			}
-			else {
-				this.store.commit(DELETE_CHECKED, item)
-			}
+	name: 'ItemListedView',
+	components: {
+		ItensNoChecked,
+	},
+	methods: {
+		clickedItem(item: IListItem) {
+
+			this.store.commit(CHECKED_ITEM, item);
+			console.log('Lista', this.store.state.listItem)
 		},
-    },
-    setup() {
+	},
+	setup() {
 		const store = useStore();
 		return {
 			store,
