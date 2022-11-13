@@ -1,6 +1,6 @@
 <template>
 	<header class="headerMenu">
-		<h1>Logotipo</h1>
+		<h1 class="logo">Smart <span class="marketName">market</span></h1>
 	</header>
 </template>
 
@@ -18,5 +18,18 @@ export default defineComponent({
 
 	padding: 8px 0;
 	padding-top: 32px;
+}
+
+.logo{
+	font-size: 32px;
+	text-transform: uppercase;
+	font-weight: 900;
+}
+.marketName{
+	color: white;
+	font-weight: 200;
+	font-size: 20px;
+	
+	text-transform: lowercase;
 }
 </style>
