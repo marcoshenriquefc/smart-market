@@ -1,9 +1,13 @@
 <template>
     <div class="full-item">
-        <ButtonQuantity class="deleteItem" @ao-click-button="clickedEditButton"> E </ButtonQuantity>
+        <ButtonQuantity class="buttonEdidItem" @ao-click-button="clickedEditButton">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.4967 1.28025C11.1231 0.906583 10.5172 0.906583 10.1436 1.28025L1.28025 10.1436C1.10081 10.323 1 10.5664 1 10.8201V14.0432C1 14.5716 1.42839 15 1.95683 15H5.17986C5.43362 15 5.677 14.8992 5.85644 14.7197L14.7197 5.85644C15.0934 5.48277 15.0934 4.87694 14.7197 4.50327L11.4967 1.28025ZM2.91367 13.0863V11.2165L10.8201 3.31L12.69 5.17986L4.78352 13.0863H2.91367Z" fill="#F2F2F2"/>
+            </svg>
+        </ButtonQuantity>
 
         <label class="item" :for="listaItem.id" @click="clickedItem(listaItem)" :class="checkedList ? 'checked' : ''">
-            <h1 class="itemName"><strong> {{ listaItem.name }} </strong></h1>
+            <h1 class="itemName"><strong> {{ listaItem.name.toLowerCase().toUpperCase()[0] + listaItem.name.substring(1) }} </strong></h1>
 
             <div class="pricesArea">
                 <p class="uniPrice"> {{ listaItem.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) || 'R$ 0,00'
@@ -151,9 +155,17 @@ export default defineComponent({
     /* border: 1px solid #75BF7A; */
 }
 
-.deleteItem {
+.buttonEdidItem svg{
+    width: 100%;
+    height: 100%;
+    max-height: 18px;
+}
+.buttonEdidItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: absolute;
-    grid-column: 5/-1;
     background: #2e47a2;
     color: #e8e8e8;
 

@@ -1,6 +1,6 @@
 <template>
 	<section v-if="listaItens.length >= 1">
-		<h3>No Checked</h3>
+		<h3 v-if="(listaItens.findIndex( i => i.checked == false)) !== -1">No Checked</h3>
 		<div v-for="(listaItem, index) in listaItens" :key="index">
 			<ItensList
 				v-if="!listaItem.checked"
@@ -12,7 +12,7 @@
 			/>
 		</div>
 
-		<h3>Checked</h3>
+		<h3 v-if="(listaItens.findIndex( i => i.checked == true)) !== -1 ">Checked</h3>
 		<div v-for="(listaItem, index) in listaItens" :key="index">
 			<ItensList
 				v-if="listaItem.checked"
