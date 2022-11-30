@@ -81,6 +81,7 @@ export const store = createStore<State>({
         console.log('DIFERENTE AQUI', JSON.parse(teste2))
 
         state.listItem = JSON.parse(teste2)
+        store.commit(TOTAL_CALC)
       }
     }
   },
