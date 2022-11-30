@@ -3,9 +3,12 @@
     <div class="box-input">
       <input v-model="quantityItem" class="input-base" type="number" name="quantity-item" id="quantity-item" placeholder="01" min="1" required />
       <input v-model="nameItem" class="input-base" type="text" name="name-item" id="name-item" placeholder="Digite o nome do produto" required />
-      <input v-model="priceItem" class="input-base" type="number" step="0.01" name="price-item" id="price-item" placeholder="R$ 0,00/unidade" />
+      <input v-model="priceItem" class="input-base" type="number" step="0.01" name="price-item" id="price-item" placeholder="R$ 0,00/unidade"  min="0"/>
     </div>
     <div class="box-button">
+      <p class="total-price">
+          Total: {{ totalItensPrice }}
+      </p>
       <ButtonMain cor="green">
         Adicionar
       </ButtonMain>
@@ -53,7 +56,8 @@ export default defineComponent({
 
     return{
       store,
-      listaItens: computed(()=> store.state.listItem)
+      totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),
+      listaItens: computed(()=> store.state.listItem),
     }
   }
 })
@@ -93,9 +97,23 @@ export default defineComponent({
 }
 .box-button{
   display: flex;
-  justify-content: end;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
 
   padding: 8px 0;
+}
+
+.total-price{
+  background-color: #F8F8F8;
+  font-weight: 600;
+
+
+  padding: 4px 12px;
+  color: #1F3324;
+
+  box-shadow: inset 4px 4px 3px rgba(0, 0, 0, 0.15);
+  
+	border-radius: 4px;
 }
 </style>

@@ -50,7 +50,7 @@
 			</div>
 		</form>
 	</section>
-	<p> {{ totalItensPrice }}</p>
+	<!-- <p> {{ totalItensPrice }}</p> -->
 </template>
 
 
@@ -104,7 +104,7 @@ export default defineComponent({
 		const store = useStore();
 		return {
 			store,
-			totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),
+			// totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),
 			listaItens: computed(() => store.state.listItem),
 		}
 	}
