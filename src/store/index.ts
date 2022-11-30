@@ -1,5 +1,5 @@
 //mutations name
-import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM, SAVE_COOKIE, GET_ITENS_COOKIES} from './typeMutation';
+import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM, SAVE_COOKIE, GET_ITENS_COOKIES, DELETE_ITEM} from './typeMutation';
 
 import { createStore, Store, useStore as vuexUseStore} from 'vuex'
 import { InjectionKey } from 'vue';
@@ -20,38 +20,45 @@ export const store = createStore<State>({
     total: 0,
   },
   mutations: {
+
+    // CRUD ITEM IN VARIABLE 
     [SAVE_ITEM](state, Item: IListItem){
       Item.id = new Date().toISOString().substring(20,24);
       Item.checked = false;
 
       state.listItem.push(Item);
       
-      store.commit(SAVE_COOKIE)
-    },
-    [CHECKED_ITEM](state, item: IListItem){
-      const indexList = state.listItem.findIndex(it => {
-				return item.id == it.id
-			})
-      state.listItem[indexList].checked = !state.listItem[indexList].checked
-      
       store.commit(TOTAL_CALC)
     },
     [EDIT_ITEM](state, item: IListItem){
-      
       item.total = item.quantity * item.price;
       
-      console.log('lista ante:', state.listItem )
       const indexList = state.listItem.findIndex(it => {
 				return item.id == it.id
 			})
 
       state.listItem[indexList] = item
       store.commit(TOTAL_CALC)
-
-      console.log('lista alterada:', state.listItem )
     },
+    [DELETE_ITEM](state, item: IListItem){
+      const itens = state.listItem.filter( it => {
+        return it.id != item.id
+      });
+
+      state.listItem = itens
+      store.commit(TOTAL_CALC)
+    },
+
+    [CHECKED_ITEM](state, item: IListItem){
+      const indexList = state.listItem.findIndex(it => {
+				return item.id == it.id
+			});
+      state.listItem[indexList].checked = !state.listItem[indexList].checked;
+      
+      store.commit(TOTAL_CALC)
+    },
+
     [TOTAL_CALC](state){
-      typeof(state.listItem)
       state.total = 0
       state.listItem.forEach(element => {
         if(element.checked){
@@ -61,29 +68,24 @@ export const store = createStore<State>({
 
       store.commit(SAVE_COOKIE)
     },
+
+
+    //COOKIES
     [SAVE_COOKIE](state){
       Util.setCookie('Itens', state.listItem, {
         expres: new Date((new Date()).setFullYear(new Date().getFullYear() + 1)),
         path: '',
       })
-
-      const teste = JSON.stringify(state.listItem)
-      console.log('ITEM: ', teste)
-      console.log('ITEM: ', typeof(teste))
-
-      // store.commit( GET_ITENS_COOKIES)
     },
     [GET_ITENS_COOKIES](state){
 
-      const teste2 = Util.getCookie('Itens')
+      const itensCookie = Util.getCookie('Itens')
 
-      if(teste2){
-        console.log('DIFERENTE AQUI', JSON.parse(teste2))
-
-        state.listItem = JSON.parse(teste2)
+      if(itensCookie){
+        state.listItem = JSON.parse(itensCookie)
         store.commit(TOTAL_CALC)
       }
-    }
+    },
   },
   actions: {
   },

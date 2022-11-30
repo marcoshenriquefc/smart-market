@@ -44,8 +44,10 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="buton-area">
 				<!-- <ButtonMain @ao-clicado="cancelEdit" cor="red">Cancel</ButtonMain> -->
+				<ButtonMain @ao-clicado="deleteItem" cor="red">delete</ButtonMain>
 				<ButtonMain cor="lightGreen">Confirm</ButtonMain>
 			</div>
 		</form>
@@ -67,7 +69,7 @@ import ButtonMain from '@/components/ButtonMain.vue'
 import IListItem from '@/interfaces/IListItem';
 
 //MUTATION/ACTION VARIABLE IMPORT's
-import { CHECKED_ITEM, EDIT_ITEM, GET_ITENS_COOKIES } from '@/store/typeMutation';
+import { CHECKED_ITEM, EDIT_ITEM, GET_ITENS_COOKIES, DELETE_ITEM } from '@/store/typeMutation';
 
 export default defineComponent({
 	name: 'ItemListedView',
@@ -97,6 +99,11 @@ export default defineComponent({
 			console.log(this.itemClicked)
 
 			this.store.commit(EDIT_ITEM, this.itemClicked)
+			this.itemClicked = null
+		},
+		deleteItem(){
+
+			this.store.commit(DELETE_ITEM, this.itemClicked)
 			this.itemClicked = null
 		}
 	},
