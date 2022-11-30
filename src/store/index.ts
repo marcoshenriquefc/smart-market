@@ -1,8 +1,11 @@
 //mutations name
-import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM} from './typeMutation';
+import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM, SAVE_COOKIE } from './typeMutation';
 
 import { createStore, Store, useStore as vuexUseStore} from 'vuex'
 import { InjectionKey } from 'vue';
+
+
+import { Util } from '@/utils/cookies'
 
 //interfaces
 import IListItem from '@/interfaces/IListItem';
@@ -22,6 +25,8 @@ export const store = createStore<State>({
       Item.checked = false;
 
       state.listItem.push(Item);
+      
+      store.commit(SAVE_COOKIE)
     },
     [CHECKED_ITEM](state, item: IListItem){
       const indexList = state.listItem.findIndex(it => {
@@ -46,12 +51,26 @@ export const store = createStore<State>({
       console.log('lista alterada:', state.listItem )
     },
     [TOTAL_CALC](state){
+      typeof(state.listItem)
       state.total = 0
       state.listItem.forEach(element => {
         if(element.checked){
           state.total += element.total
         }
       })
+
+      store.commit(SAVE_COOKIE)
+    },
+    [SAVE_COOKIE](state){
+      Util.setCookie('Itens', state.listItem, {
+        expres: new Date((new Date()).setFullYear(new Date().getFullYear() + 1)),
+        path: '',
+      })
+
+      const teste = JSON.stringify(state.listItem)
+      console.log('ITEM: ', teste)
+      console.log('ITEM: ', typeof(teste))
+
     }
   },
   actions: {
