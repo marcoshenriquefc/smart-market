@@ -5,8 +5,6 @@
 			<FormAdd />
 		</div>
 		<div class="botomArea">
-			<!-- <ListItens /> -->
-
 			<ItemListedView/>
 		</div>
 
@@ -19,6 +17,8 @@ import { defineComponent } from 'vue';
 import HeaderMenu from '@/components/Header.vue'
 import FormAdd from '@/components/formAdd.vue'
 import ItemListedView from '@/views/ItensListed.vue'
+
+import IListItem from '@/interfaces/IListItem';
 // import ListItens from '@/components/ListItens.vue'
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
 		FormAdd,
 		ItemListedView,
 		// ListItens,
-	}
+	},
 })
 </script>
 

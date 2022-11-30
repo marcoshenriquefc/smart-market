@@ -1,4 +1,4 @@
-# proj01
+# SmartMarket
 
 ## Project setup
 ```
