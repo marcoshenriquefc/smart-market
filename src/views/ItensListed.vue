@@ -67,7 +67,7 @@ import ButtonMain from '@/components/ButtonMain.vue'
 import IListItem from '@/interfaces/IListItem';
 
 //MUTATION/ACTION VARIABLE IMPORT's
-import { CHECKED_ITEM, EDIT_ITEM } from '@/store/typeMutation';
+import { CHECKED_ITEM, EDIT_ITEM, GET_ITENS_COOKIES } from '@/store/typeMutation';
 
 export default defineComponent({
 	name: 'ItemListedView',
@@ -102,6 +102,8 @@ export default defineComponent({
 	},
 	setup() {
 		const store = useStore();
+		store.commit( GET_ITENS_COOKIES)
+
 		return {
 			store,
 			// totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),

@@ -1,5 +1,5 @@
 //mutations name
-import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM, SAVE_COOKIE } from './typeMutation';
+import { SAVE_ITEM, CHECKED_ITEM, TOTAL_CALC, EDIT_ITEM, SAVE_COOKIE, GET_ITENS_COOKIES} from './typeMutation';
 
 import { createStore, Store, useStore as vuexUseStore} from 'vuex'
 import { InjectionKey } from 'vue';
@@ -71,6 +71,17 @@ export const store = createStore<State>({
       console.log('ITEM: ', teste)
       console.log('ITEM: ', typeof(teste))
 
+      // store.commit( GET_ITENS_COOKIES)
+    },
+    [GET_ITENS_COOKIES](state){
+
+      const teste2 = Util.getCookie('Itens')
+
+      if(teste2){
+        console.log('DIFERENTE AQUI', JSON.parse(teste2))
+
+        state.listItem = JSON.parse(teste2)
+      }
     }
   },
   actions: {

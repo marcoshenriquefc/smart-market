@@ -6,3 +6,4 @@ export const EDIT_ITEM = "EDIT_ITEM"
 export const TOTAL_CALC = "TOTAL_CALC"
 
 export const SAVE_COOKIE = "SAVE_COOKIE"
+export const GET_ITENS_COOKIES = 'GET_ITENS_COOKIES'
