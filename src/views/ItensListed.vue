@@ -53,6 +53,9 @@
 		</form>
 	</section>
 	<!-- <p> {{ totalItensPrice }}</p> -->
+
+
+	<LucasAugusto nomePessoa="Lucas"/>
 </template>
 
 
@@ -64,6 +67,8 @@ import { computed, defineComponent } from 'vue';
 //COMPONENTS IMPORT's
 import ItensList from '@/components/ItensList.vue'
 import ButtonMain from '@/components/ButtonMain.vue'
+
+import LucasAugusto from '@/components/LucasAugusto.vue'
 
 //INTERFACES IMPORT's
 import IListItem from '@/interfaces/IListItem';
@@ -80,7 +85,8 @@ export default defineComponent({
 	},
 	components: {
 		ItensList,
-		ButtonMain
+		ButtonMain,
+		LucasAugusto
 	},
 	methods: {
 		clickedItem(item: IListItem) {

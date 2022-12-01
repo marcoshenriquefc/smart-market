@@ -2,7 +2,6 @@
   <FirstList/>
 </template>
 
-
 <script lang="ts">
   import FirstList from '@/views/FirstList.vue'
   import { defineComponent } from 'vue';
