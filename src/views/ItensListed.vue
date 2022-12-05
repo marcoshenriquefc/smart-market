@@ -54,8 +54,6 @@
 	</section>
 	<!-- <p> {{ totalItensPrice }}</p> -->
 
-
-	<LucasAugusto nomePessoa="Lucas"/>
 </template>
 
 
@@ -67,8 +65,6 @@ import { computed, defineComponent } from 'vue';
 //COMPONENTS IMPORT's
 import ItensList from '@/components/ItensList.vue'
 import ButtonMain from '@/components/ButtonMain.vue'
-
-import LucasAugusto from '@/components/LucasAugusto.vue'
 
 //INTERFACES IMPORT's
 import IListItem from '@/interfaces/IListItem';
@@ -86,16 +82,13 @@ export default defineComponent({
 	components: {
 		ItensList,
 		ButtonMain,
-		LucasAugusto
 	},
 	methods: {
 		clickedItem(item: IListItem) {
 			this.store.commit(CHECKED_ITEM, item);
-			// console.log('Lista', this.store.state.listItem)
 		},
 		editItem(item: IListItem){
 			let item2 = item
-			// this.itemClicked = item
 			this.itemClicked = item2
 		},
 		cancelEdit(){
@@ -119,7 +112,6 @@ export default defineComponent({
 
 		return {
 			store,
-			// totalItensPrice: computed(() => store.state.total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })),
 			listaItens: computed(() => store.state.listItem),
 		}
 	}
