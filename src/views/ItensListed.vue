@@ -48,7 +48,7 @@
 			<div class="buton-area">
 				<!-- <ButtonMain @ao-clicado="cancelEdit" cor="red">Cancel</ButtonMain> -->
 				<ButtonMain @ao-clicado="deleteItem" cor="red">delete</ButtonMain>
-				<ButtonMain cor="lightGreen">Confirm</ButtonMain>
+				<ButtonMain cor="lightGreen" type="submit">Confirm</ButtonMain>
 			</div>
 		</form>
 	</section>
