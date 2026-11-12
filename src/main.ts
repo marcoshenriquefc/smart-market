@@ -1,9 +1,11 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-// import router from './router'
-import { store, key } from './store'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { store, key } from './store';
+import { registerPwaServiceWorker } from './pwa/registerServiceWorker';
+
+registerPwaServiceWorker();
+void store.dispatch('initOfflineEngine');
 
 createApp(App)
-  .use(store, key )
-  // .use(router)
-  .mount('#app')
+  .use(store, key)
+  .mount('#app');
