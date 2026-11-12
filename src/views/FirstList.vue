@@ -2,62 +2,65 @@
 	<main id="mainArea">
 		<div class="topArea">
 			<HeaderMenu />
-			<FormAdd />
 		</div>
+
 		<div class="botomArea">
-			<ItemListedView/>
+			<div class="listContainer">
+				<ItemListedView />
+			</div>
 		</div>
 
+		<FormAdd />
 	</main>
-
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HeaderMenu from '@/components/Header.vue'
-import FormAdd from '@/components/formAdd.vue'
-import ItemListedView from '@/views/ItensListed.vue'
-
-import IListItem from '@/interfaces/IListItem';
-// import ListItens from '@/components/ListItens.vue'
+import HeaderMenu from '@/components/Header.vue';
+import FormAdd from '@/components/formAdd.vue';
+import ItemListedView from '@/views/ItensListed.vue';
 
 export default defineComponent({
-	name: "FirstList",
+	name: 'FirstList',
 	components: {
 		HeaderMenu,
 		FormAdd,
 		ItemListedView,
-		// ListItens,
 	},
-})
+});
 </script>
 
 <style>
 #mainArea {
 	height: 100vh;
+	height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 	background-color: #F2F2F2;
 }
 
 .topArea {
 	z-index: 1;
+	flex-shrink: 0;
 	background-color: #75BF7A;
-	padding-bottom: 20px;
+	padding-bottom: 24px;
 }
 
 .botomArea {
+	flex: 1;
 	background-color: #F2F2F2;
-	border-radius: 20px;
-
-	min-height: 150px;
-
-	padding: 12px;
-	padding-bottom: 40px;
+	border-radius: 20px 20px 0 0;
+	padding: 14px 12px calc(98px + env(safe-area-inset-bottom, 0px));
 	z-index: 2;
 	margin-top: -20px;
-
 	box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.1);
-
-	max-height: calc(100% - 200px);
 	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.listContainer {
+	max-width: 600px;
+	margin: 0 auto;
 }
 </style>
